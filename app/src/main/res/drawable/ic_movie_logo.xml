@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Frame film kiri -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M3,3h4v4H3zM3,10h4v4H3zM3,17h4v4H3z" />
+
+    <!-- Frame film kanan -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M17,3h4v4h-4zM17,10h4v4h-4zM17,17h4v4h-4z" />
+
+    <!-- Badan gulungan film -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M7,3h10v18H7z" />
+
+</vector>
