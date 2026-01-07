@@ -16,19 +16,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nontonitats.adapter.MovieAdapter;
+import com.example.nontonitats.api.ApiService;
+import com.example.nontonitats.api.ApiClient;
 import com.example.nontonitats.model.Movie;
+import com.example.nontonitats.response.MovieResponse;
 import com.example.nontonitats.utils.NetworkMonitor;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rvMovies;
     private MovieAdapter adapter;
     private List<Movie> allMovies;
-    private TextView btnPopular, btnTopRated, btnUpcoming, btnAll;
+//    private TextView btnPopular, btnTopRated, btnUpcoming, btnAll;
     private EditText etSearch;
     private ImageView btnSaved;
     private ImageView btnProfile;
@@ -36,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private NetworkMonitor networkMonitor;
     private AlertDialog noInternetDialog;
     private View blockerView;
-
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
         rvMovies = findViewById(R.id.rvMovies);
         rvMovies.setLayoutManager(new GridLayoutManager(this, 2));
 
-        btnPopular = findViewById(R.id.btnPopular);
-        btnTopRated = findViewById(R.id.btnTopRated);
-        btnUpcoming = findViewById(R.id.btnUpcoming);
-        btnAll = findViewById(R.id.btnAll);
+//        btnPopular = findViewById(R.id.btnPopular);
+//        btnTopRated = findViewById(R.id.btnTopRated);
+//        btnUpcoming = findViewById(R.id.btnUpcoming);
+//        btnAll = findViewById(R.id.btnAll);
         etSearch = findViewById(R.id.etSearch);
         btnSaved = findViewById(R.id.btnSaved);
         btnProfile = findViewById(R.id.btnProfile);
@@ -57,28 +64,19 @@ public class MainActivity extends AppCompatActivity {
         blockerView = findViewById(R.id.blockerView);
 
         allMovies = new ArrayList<>();
-        allMovies.add(new Movie("Avatar: The Way of Water", R.drawable.movie1, "popular",
-                "Film fiksi ilmiah yang mengikuti perjalanan Jake Sully di Pandora.", "8.5/10", "192 menit"));
-        allMovies.add(new Movie("Venom", R.drawable.movie2, "popular",
-                "Seorang jurnalis terinfeksi makhluk asing bernama Venom.", "7.3/10", "112 menit"));
-        allMovies.add(new Movie("Take Cover", R.drawable.movie3, "topRated",
-                "Cerita aksi dan drama tentang bertahan hidup.", "8.0/10", "130 menit"));
-        allMovies.add(new Movie("Adam Driver 65", R.drawable.movie4, "topRated",
-                "Film misteri tentang kehidupan seorang agen rahasia.", "8.2/10", "140 menit"));
-        allMovies.add(new Movie("John Wick 2", R.drawable.movie5, "upcoming",
-                "John Wick kembali untuk membalas dendam.", "8.1/10", "122 menit"));
-        allMovies.add(new Movie("Smile", R.drawable.movie6, "upcoming",
-                "Horror psikologis tentang senyuman mematikan.", "7.5/10", "115 menit"));
 
-        adapter = new MovieAdapter(allMovies, movie -> showMovieDetail(movie));
+        adapter = new MovieAdapter(new ArrayList<>(), movie -> showMovieDetail(movie));
         rvMovies.setAdapter(adapter);
+
+        loadMoviesFromApi();
+
 
         showAllMovies();
 
-        btnPopular.setOnClickListener(v -> filterMovies("popular"));
-        btnTopRated.setOnClickListener(v -> filterMovies("topRated"));
-        btnUpcoming.setOnClickListener(v -> filterMovies("upcoming"));
-        btnAll.setOnClickListener(v -> showAllMovies());
+//        btnPopular.setOnClickListener(v -> filterMovies("popular"));
+//        btnTopRated.setOnClickListener(v -> filterMovies("topRated"));
+//        btnUpcoming.setOnClickListener(v -> filterMovies("upcoming"));
+//        btnAll.setOnClickListener(v -> showAllMovies());
         btnSaved.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, BookmarkActivity.class);
             startActivity(intent);
@@ -153,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     private void filterMovies(String category) {
         List<Movie> filtered = new ArrayList<>();
         for (Movie m : allMovies) {
-            if (m.getCategory().equals(category)) filtered.add(m);
+            if (m.getGenre().equalsIgnoreCase(category));
         }
         adapter.updateList(filtered);
         highlightCategory(category);
@@ -161,29 +159,29 @@ public class MainActivity extends AppCompatActivity {
 
     private void showAllMovies() {
         adapter.updateList(allMovies);
-        resetHighlightCategory();
+//        resetHighlightCategory();
     }
 
     private void highlightCategory(String category) {
-        btnPopular.setBackgroundResource(R.drawable.bg_chip);
-        btnTopRated.setBackgroundResource(R.drawable.bg_chip);
-        btnUpcoming.setBackgroundResource(R.drawable.bg_chip);
-        btnAll.setBackgroundResource(R.drawable.bg_chip);
+//        btnPopular.setBackgroundResource(R.drawable.bg_chip);
+//        btnTopRated.setBackgroundResource(R.drawable.bg_chip);
+//        btnUpcoming.setBackgroundResource(R.drawable.bg_chip);
+//        btnAll.setBackgroundResource(R.drawable.bg_chip);
 
         switch (category) {
-            case "popular": btnPopular.setBackgroundResource(R.drawable.bg_chip_selected); break;
-            case "topRated": btnTopRated.setBackgroundResource(R.drawable.bg_chip_selected); break;
-            case "upcoming": btnUpcoming.setBackgroundResource(R.drawable.bg_chip_selected); break;
-            case "all": btnAll.setBackgroundResource(R.drawable.bg_chip_selected); break;
+//            case "popular": btnPopular.setBackgroundResource(R.drawable.bg_chip_selected); break;
+//            case "topRated": btnTopRated.setBackgroundResource(R.drawable.bg_chip_selected); break;
+//            case "upcoming": btnUpcoming.setBackgroundResource(R.drawable.bg_chip_selected); break;
+//            case "all": btnAll.setBackgroundResource(R.drawable.bg_chip_selected); break;
         }
     }
 
-    private void resetHighlightCategory() {
-        btnPopular.setBackgroundResource(R.drawable.bg_chip);
-        btnTopRated.setBackgroundResource(R.drawable.bg_chip);
-        btnUpcoming.setBackgroundResource(R.drawable.bg_chip);
-        btnAll.setBackgroundResource(R.drawable.bg_chip_selected);
-    }
+//    private void resetHighlightCategory() {
+//        btnPopular.setBackgroundResource(R.drawable.bg_chip);
+//        btnTopRated.setBackgroundResource(R.drawable.bg_chip);
+//        btnUpcoming.setBackgroundResource(R.drawable.bg_chip);
+//        btnAll.setBackgroundResource(R.drawable.bg_chip_selected);
+//    }
 
     private void checkInitialConnection() {
         if (!NetworkMonitor.isConnected(this)) {
@@ -219,5 +217,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (networkMonitor != null) networkMonitor.stopMonitor();
+    }
+
+    private void loadMoviesFromApi() {
+        ApiService apiService = ApiClient
+                .getClient()
+                .create(ApiService.class);
+
+        apiService.getMovies().enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    allMovies.clear();
+                    allMovies.addAll(response.body().getData());
+                    adapter.updateList(allMovies);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }

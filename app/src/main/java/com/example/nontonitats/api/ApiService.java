@@ -1,11 +1,13 @@
 package com.example.nontonitats.api;
 
+import com.example.nontonitats.model.Movie;
 import com.example.nontonitats.request.LoginRequest;
 import com.example.nontonitats.request.RegisterRequest;
 import com.example.nontonitats.request.UpdateProfileRequest;
 import com.example.nontonitats.response.DeleteAccountResponse;
 import com.example.nontonitats.response.LoginResponse;
 import com.example.nontonitats.response.MeResponse;
+import com.example.nontonitats.response.MovieResponse;
 import com.example.nontonitats.response.RegisterResponse;
 import com.example.nontonitats.response.UpdateProfileResponse;
 import com.example.nontonitats.response.UsersResponse;
@@ -16,6 +18,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -37,6 +40,13 @@ public interface ApiService {
 
     @GET("api/users")
     Call<UsersResponse> getAllUsers();
+
+
+    @GET("api/movies")
+    Call<MovieResponse> getMovies();
+
+    @GET("api/movies/{id}")
+    Call<Movie> getMovieDetail(@Path("id") int id);
 
 
 
