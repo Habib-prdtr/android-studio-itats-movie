@@ -1,135 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
-    tools:context=".MainActivity">
+    android:fillViewport="true">
 
-    <!-- ====================== HEADER ====================== -->
-    <LinearLayout
-        android:id="@+id/headerRow"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:paddingBottom="80dp"
+        tools:context=".MainActivity">
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/tvTitle"
+        <!-- ====================== HEADER ====================== -->
+        <LinearLayout
+            android:id="@+id/headerRow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="ITATS Movie"
-            android:textSize="28sp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ITATS Movie"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnBackground" />
+
+            <!-- Bookmark -->
+            <ImageView
+                android:id="@+id/btnSaved"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_bookmark_filled"
+                android:padding="6dp"
+                app:tint="?attr/colorOnBackground"
+                android:layout_marginStart="12dp" />
+
+            <!-- Profile -->
+            <ImageView
+                android:id="@+id/btnProfile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_profile"
+                android:padding="6dp"
+                app:tint="?attr/colorOnBackground"
+                android:layout_marginStart="12dp" />
+
+            <!-- Settings -->
+            <ImageView
+                android:id="@+id/btnSettings"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_settings"
+                android:padding="6dp"
+                app:tint="?attr/colorOnBackground"
+                android:layout_marginStart="12dp" />
+
+        </LinearLayout>
+
+        <!-- ====================== WELCOME MESSAGE ====================== -->
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Selamat Datang!"
+            android:textSize="18sp"
+            android:textColor="?attr/colorOnBackground"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintTop_toBottomOf="@id/headerRow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ====================== SEARCH BAR ====================== -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/searchCard"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvWelcome"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/ivSearchIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_search"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    app:tint="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Cari film favorit Anda..."
+                    android:paddingStart="48dp"
+                    android:paddingEnd="16dp"
+                    android:background="@android:color/transparent"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textColorHint="@color/gray_600"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ====================== GENRE SECTION ====================== -->
+        <TextView
+            android:id="@+id/tvGenreTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Browse by Genre"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="?attr/colorOnBackground" />
+            android:textColor="?attr/colorOnBackground"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintTop_toBottomOf="@id/searchCard"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Bookmark -->
-        <ImageView
-            android:id="@+id/btnSaved"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_bookmark_filled"
-            android:padding="6dp"
-            app:tint="?attr/colorOnBackground"
-            android:layout_marginStart="12dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvGenres"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/tvGenreTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Profile -->
-        <ImageView
-            android:id="@+id/btnProfile"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_profile"
-            android:padding="6dp"
-            app:tint="?attr/colorOnBackground"
-            android:layout_marginStart="12dp" />
+        <!-- ====================== TRENDING MOVIES SECTION ====================== -->
+        <TextView
+            android:id="@+id/tvTrendingTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="🔥 Trending Now"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnBackground"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintTop_toBottomOf="@id/rvGenres"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Settings -->
-        <ImageView
-            android:id="@+id/btnSettings"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_settings"
-            android:padding="6dp"
-            app:tint="?attr/colorOnBackground"
-            android:layout_marginStart="12dp" />
+        <TextView
+            android:id="@+id/tvTrendingSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="10 film paling populer minggu ini"
+            android:textSize="12sp"
+            android:textColor="@color/gray_600"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTrendingTitle"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/btnLogout"-->
-        <!--            android:layout_width="32dp"-->
-        <!--            android:layout_height="32dp"-->
-        <!--            android:src="@drawable/ic_logout"-->
-        <!--            android:layout_alignParentEnd="true"-->
-        <!--            android:padding="6dp" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTrending"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/tvTrendingSubtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    </LinearLayout>
+        <!-- ====================== NEW RELEASES SECTION ====================== -->
+        <TextView
+            android:id="@+id/tvNewReleasesTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="🎬 New Releases"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnBackground"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintTop_toBottomOf="@id/rvTrending"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- ====================== SEARCH BAR ====================== -->
-    <EditText
-        android:id="@+id/etSearch"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:hint="Search movie..."
-        android:padding="12dp"
-        android:background="@drawable/bg_search"
-        android:textColor="?attr/colorOnBackground"
-        android:textColorHint="?attr/colorOnBackground"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="10dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/headerRow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/tvNewReleasesSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Film terbaru yang baru dirilis"
+            android:textSize="12sp"
+            android:textColor="@color/gray_600"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintTop_toBottomOf="@id/tvNewReleasesTitle"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- ====================== CATEGORY ====================== -->
-    <HorizontalScrollView
-        android:id="@+id/categoryScroll"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/etSearch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-    </HorizontalScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNewReleases"
+            android:layout_width="0dp"
+            android:layout_height="260dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/tvNewReleasesSubtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- ====================== RECYCLER VIEW ====================== -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMovies"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/categoryScroll"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <!-- ====================== ALL MOVIES SECTION ====================== -->
+        <TextView
+            android:id="@+id/tvAllMoviesTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="📺 All Movies"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnBackground"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintTop_toBottomOf="@id/rvNewReleases"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- ====================== FRAGMENT ====================== -->
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="?android:colorBackground"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAllMovies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            android:scrollbars="none"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/tvAllMoviesTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-    <View
-        android:id="@+id/blockerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#80000000"
-        android:visibility="gone" />
+        <!-- ====================== FRAGMENT CONTAINER ====================== -->
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="?android:colorBackground"/>
 
+        <View
+            android:id="@+id/blockerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000"
+            android:visibility="gone" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

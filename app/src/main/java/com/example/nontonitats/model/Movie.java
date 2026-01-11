@@ -8,19 +8,29 @@ public class Movie implements Serializable {
     private String title;
     private String overview;
     private String poster_url;
-    private double rating;
+    private Double rating;
     private String genre;
     private String release_date;
     private String video_url;
+    private String createdAt;
+
+
+    public int getId() { return id; }
 
     public String getTitle() { return title; }
     public String getOverview() { return overview; }
     public String getPoster_url() { return poster_url; }
-    public double getRating() { return rating; }
+    public Double getRating() { return rating; }
     public String getGenre() { return genre; }
     public String getRelease_date() { return release_date; }
 
     public String getVideo_url() {
         return video_url;
+    }
+    public String getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

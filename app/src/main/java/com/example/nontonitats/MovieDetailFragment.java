@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,6 +19,9 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.nontonitats.model.Movie;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.MediaItem;
 
 import java.io.Serializable;
 
@@ -25,6 +29,10 @@ public class MovieDetailFragment extends Fragment {
 
     private static final String ARG_MOVIE = "arg_movie";
     private Movie movie;
+
+    private ExoPlayer player;
+    private PlayerView playerView;
+
 
     private ImageButton btnBookmark;
     private boolean isBookmarked = false;
@@ -47,6 +55,8 @@ public class MovieDetailFragment extends Fragment {
         }
     }
 
+    Button btnPlayVideo;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -63,6 +73,17 @@ public class MovieDetailFragment extends Fragment {
         ImageButton btnCloseDetail = view.findViewById(R.id.btnCloseDetail);
         btnBookmark = view.findViewById(R.id.btnBookmark);
         Button btnSearchOnline = view.findViewById(R.id.btnSearchOnline);
+
+        playerView = view.findViewById(R.id.playerView);
+
+        player = new ExoPlayer.Builder(requireContext()).build();
+        playerView.setPlayer(player);
+
+        String videoUrl = BASE_IMAGE_URL + "/" + movie.getVideo_url();
+        MediaItem mediaItem = MediaItem.fromUri(videoUrl);
+
+        player.setMediaItem(mediaItem);
+        player.prepare();
 
         if (movie != null) {
             String posterUrl = BASE_IMAGE_URL + movie.getPoster_url();
@@ -121,4 +142,13 @@ public class MovieDetailFragment extends Fragment {
                         : R.drawable.ic_bookmark_border
         );
     }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (player != null) {
+            player.release();
+            player = null;
+        }
+    }
+
 }

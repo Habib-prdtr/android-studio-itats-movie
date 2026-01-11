@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#AA000000">
@@ -47,6 +48,12 @@
             android:text="Cari Film di Google"
             android:padding="10dp"
             android:textStyle="bold"/>
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/playerView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:use_controller="true"/>
 
         <!-- Poster -->
         <ImageView
