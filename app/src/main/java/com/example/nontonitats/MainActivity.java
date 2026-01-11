@@ -323,14 +323,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showMovieDetail(Movie movie) {
+        // Sembunyikan search bar dan elemen lain
+        findViewById(R.id.searchCard).setVisibility(View.GONE);
+        findViewById(R.id.tvWelcome).setVisibility(View.GONE);
+        findViewById(R.id.tvGenreTitle).setVisibility(View.GONE);
+        findViewById(R.id.rvGenres).setVisibility(View.GONE);
+        findViewById(R.id.tvTrendingTitle).setVisibility(View.GONE);
+        findViewById(R.id.tvTrendingSubtitle).setVisibility(View.GONE);
+        findViewById(R.id.rvTrending).setVisibility(View.GONE);
+        findViewById(R.id.tvNewReleasesTitle).setVisibility(View.GONE);
+        findViewById(R.id.tvNewReleasesSubtitle).setVisibility(View.GONE);
+        findViewById(R.id.rvNewReleases).setVisibility(View.GONE);
+        findViewById(R.id.tvAllMoviesTitle).setVisibility(View.GONE);
+        findViewById(R.id.rvAllMovies).setVisibility(View.GONE);
+
+        // Tampilkan fragment
         MovieDetailFragment fragment = MovieDetailFragment.newInstance(movie);
         findViewById(R.id.fragmentContainer).setVisibility(View.VISIBLE);
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)
-                .addToBackStack(null)
+                .addToBackStack("movie_detail")
                 .commit();
+    }
+
+    public void restoreMainUI() {
+        findViewById(R.id.searchCard).setVisibility(View.VISIBLE);
+        findViewById(R.id.tvWelcome).setVisibility(View.VISIBLE);
+        findViewById(R.id.tvGenreTitle).setVisibility(View.VISIBLE);
+        findViewById(R.id.rvGenres).setVisibility(View.VISIBLE);
+        findViewById(R.id.tvTrendingTitle).setVisibility(View.VISIBLE);
+        findViewById(R.id.tvTrendingSubtitle).setVisibility(View.VISIBLE);
+        findViewById(R.id.rvTrending).setVisibility(View.VISIBLE);
+        findViewById(R.id.tvNewReleasesTitle).setVisibility(View.VISIBLE);
+        findViewById(R.id.tvNewReleasesSubtitle).setVisibility(View.VISIBLE);
+        findViewById(R.id.rvNewReleases).setVisibility(View.VISIBLE);
+        findViewById(R.id.tvAllMoviesTitle).setVisibility(View.VISIBLE);
+        findViewById(R.id.rvAllMovies).setVisibility(View.VISIBLE);
     }
 
     private void setupSearch() {
@@ -403,6 +433,11 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
                     .show();
         });
+    }
+
+    // Di MainActivity.java tambahkan method ini:
+    public List<Movie> getAllMovies() {
+        return allMovies;
     }
 
     @Override

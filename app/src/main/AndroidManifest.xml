@@ -47,6 +47,11 @@
         <activity android:name=".SettingsActivity"/>
         <activity android:name=".ProfileActivity"/>
         <activity android:name=".EditProfileActivity"/>
+        <activity
+            android:name=".PlayerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait" />
 
     </application>
 

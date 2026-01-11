@@ -42,10 +42,15 @@
     <color name="colorPrimaryDark">#FF1976D2</color>
     <color name="colorAccent">#FF03DAC5</color>
 
+    <color name="gray_100">#FFF5F5F5</color>
     <color name="gray_200">#FFEEEEEE</color>
     <color name="gray_300">#FFE0E0E0</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_500">#FF9E9E9E</color>
     <color name="gray_600">#FF757575</color>
+    <color name="gray_700">#FF616161</color>
     <color name="gray_800">#FF424242</color>
+    <color name="gray_900">#FF212121</color>
 
     <!-- Genre colors -->
     <color name="genre_action">#FFF44336</color>
@@ -56,4 +61,8 @@
     <color name="genre_sci_fi">#FF3F51B5</color>
     <color name="genre_adventure">#FF009688</color>
     <color name="genre_animation">#FFFF9800</color>
+
+    <!-- Player colors -->
+    <color name="player_background">#FF000000</color>
+    <color name="player_controls">#33000000</color>
 </resources>
