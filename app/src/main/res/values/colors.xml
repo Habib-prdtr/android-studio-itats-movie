@@ -65,4 +65,7 @@
     <!-- Player colors -->
     <color name="player_background">#FF000000</color>
     <color name="player_controls">#33000000</color>
+
+    <color name="background_dark">#0F0F1A</color>
+    <color name="colorPrimary20">#33FF6B35</color>
 </resources>

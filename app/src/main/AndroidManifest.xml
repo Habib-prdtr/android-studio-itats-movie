@@ -50,8 +50,10 @@
         <activity
             android:name=".PlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:exported="false"
+            android:screenOrientation="sensor"
+            android:theme="@style/Theme.NontonITATS"
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 

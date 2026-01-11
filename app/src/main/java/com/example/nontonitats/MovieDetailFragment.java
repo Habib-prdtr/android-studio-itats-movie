@@ -240,6 +240,16 @@ public class MovieDetailFragment extends Fragment {
             if (movie != null && movie.getVideo_url() != null && !movie.getVideo_url().isEmpty()) {
                 Intent intent = new Intent(requireActivity(), PlayerActivity.class);
                 intent.putExtra("MOVIE", movie);
+
+                // Kirim semua movies untuk recommendations
+                if (getActivity() instanceof MainActivity) {
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    List<Movie> allMovies = mainActivity.getAllMovies();
+                    if (allMovies != null && !allMovies.isEmpty()) {
+                        intent.putExtra("ALL_MOVIES", new ArrayList<>(allMovies));
+                    }
+                }
+
                 startActivity(intent);
             } else {
                 Toast.makeText(getContext(), "Video tidak tersedia", Toast.LENGTH_SHORT).show();

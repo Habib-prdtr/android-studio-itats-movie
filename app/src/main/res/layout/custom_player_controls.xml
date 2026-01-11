@@ -1,20 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="16dp"
     android:gravity="center">
 
-    <!-- Play/Pause Button besar di tengah -->
+    <!-- Play/Pause Center Button -->
     <ImageButton
         android:id="@+id/exo_play"
         style="@style/ExoMediaButton.Play"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:src="@drawable/ic_play_circle"
-        android:background="@drawable/bg_circle"
+        android:background="@drawable/bg_circle_large"
+        android:scaleType="center"
         app:tint="@android:color/white" />
+
+    <!-- Additional Controls -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/btnRewind"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_circle_small"
+            android:src="@drawable/ic_rewind_10"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/btnForward"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/bg_circle_small"
+            android:src="@drawable/ic_forward_10"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/btnSubtitles"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_circle_small"
+            android:src="@drawable/ic_subtitles"
+            app:tint="@android:color/white" />
+
+    </LinearLayout>
 
 </LinearLayout>
